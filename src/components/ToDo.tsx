@@ -3,7 +3,13 @@ import { IToDo, toDoState } from "../atoms";
 
 const ToDo = ({ text, category, id }: IToDo) => {
   const setToDos = useSetRecoilState(toDoState);
-  const onClick = (newCategory: IToDo["category"]) => {};
+  const onClick = (newCategory: IToDo["category"]) => {
+    setToDos((oldToDos) => {
+      return oldToDos.map((toDo) => {
+        return toDo.id === id ? { text, id, category: newCategory } : toDo;
+      });
+    });
+  };
   return (
     <li>
       <span>{text}</span>
